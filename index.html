@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SECURE DATABASE</title>
+  <title>SECURE ARCHIVE SYSTEM</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="screen">
-  <h1>SECURE ACCESS TERMINAL</h1>
-  <p id="output">Initializing system...</p>
+<!-- LOGIN -->
+<div id="loginScreen" class="screen active">
+  <h1>[ORGANIZATION NAME REDACTED]</h1>
+  <p>SECURE ACCESS TERMINAL</p>
+  <input id="username" placeholder="Username"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+  <button onclick="login()">LOGIN</button>
+  <p id="loginMsg"></p>
+</div>
 
-  <input type="text" id="input" placeholder="Enter command..." autofocus>
+<!-- MENU -->
+<div id="menuScreen" class="screen">
+  <h2>WELCOME, AGENT</h2>
+  <p>CLEARANCE LEVEL: <span id="clearanceDisplay"></span></p>
+  <button onclick="showDatabase()">ANOMALY DATABASE</button>
+</div>
+
+<!-- DATABASE -->
+<div id="dbScreen" class="screen">
+  <h2>ANOMALY DATABASE</h2>
+  <div id="dbList"></div>
+  <button onclick="goMenu()">BACK</button>
+</div>
+
+<!-- REPORT -->
+<div id="reportScreen" class="screen">
+  <div id="reportContent"></div>
+  <button onclick="showDatabase()">BACK</button>
 </div>
 
 <script src="script.js"></script>
