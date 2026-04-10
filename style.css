@@ -1,0 +1,17 @@
+body {
+  background-color: black;
+  color: #00ff88;
+  font-family: "Courier New", monospace;
+}
+
+#screen {
+  padding: 20px;
+}
+
+input {
+  background: black;
+  color: #00ff88;
+  border: none;
+  outline: none;
+  width: 100%;
+}
