@@ -1,67 +1,84 @@
 let clearance = 0;
 let data = [];
+let personnel = [];
 
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQb-Q0KvwVyi_-QP6huF9_EEp_fV85t44zQyxeKrr60zcigUOVbOPIgUPXSwtTazvVqYWNOmg_asynX/pubhtml#gid=262187708";
+const APEX_USER = "https://opensheet.elk.sh/1m6_gEFaYBRO-BhacApVayO5qAZJMuWN2LBnv7H4zK4U/Users";
+const APEX_ARTI = "https://opensheet.elk.sh/1m6_gEFaYBRO-BhacApVayO5qAZJMuWN2LBnv7H4zK4U/Artifacts";
+const APEX_ENTI = "https://opensheet.elk.sh/1m6_gEFaYBRO-BhacApVayO5qAZJMuWN2LBnv7H4zK4U/Entities";
+const APEX_SITE = "https://opensheet.elk.sh/1m6_gEFaYBRO-BhacApVayO5qAZJMuWN2LBnv7H4zK4U/Sites";
 
 function login() {
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
 
-  if (pass === "containment") {
-    clearance = 3; // change per player if you want
-    switchScreen("menuScreen");
-    document.getElementById("clearanceDisplay").innerText = clearance;
-  } else {
-    document.getElementById("loginMsg").innerText = "ACCESS DENIED";
-  }
+    fetch(APEX_USER).then(res => res.json()).then(rows => {
+        personnel = rows;
+
+        const found = rows.find(p => p.username === user && p.password === pass);
+
+        if (found) {
+            clearance = parseInt(found.clearance);
+            switchScreen("menuScreen");
+            document.getElementById("clearnaceDisplay").innerText = clearance;
+            document.getElementById("agentName").innerText = found.last;
+        }
+        else {
+            document.getElementById("loginMsg").innerText = "ACCESS DENIED";
+        }
+    });
+    /*
+    if (pass === "containment") {
+        clearance = 3; // change per player if you want
+        switchScreen("menuScreen");
+        document.getElementById("clearanceDisplay").innerText = clearance;
+    } else {
+        document.getElementById("loginMsg").innerText = "ACCESS DENIED";
+    }
+    */
 }
 
 function switchScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 }
 
 function showDatabase() {
-  switchScreen("dbScreen");
+    switchScreen("dbScreen");
 
-  fetch(API_URL)
-    .then(res => res.json())
-    .then(rows => {
-      data = rows;
-      const list = document.getElementById("dbList");
-      list.innerHTML = "";
+    fetch(APEX_ARTI)
+        .then(res => res.json())
+        .then(rows => {
+            data = rows;
+            const list = document.getElementById("dbList");
+            list.innerHTML = "";
 
-      rows.forEach((row, i) => {
-        if (parseInt(row.clearance) <= clearance) {
-          const div = document.createElement("div");
-          div.innerHTML = `
-            <button onclick="openReport(${i})">
-              ${row.id} | ${row.class} | ${row.status}
-            </button>
-          `;
-          list.appendChild(div);
-        }
-      });
-    });
+            rows.forEach((row, i) => {
+                if (parseInt(row.clearance) <= clearance) {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<button onclick="openReport(${i})">${row.discovery} | ${row.name} | CONTAINED:${row.contained}</button>`;
+                    list.appendChild(div);
+                }
+            });
+        });
 }
 
 function openReport(i) {
-  const row = data[i];
+    const row = data[i];
 
-  if (parseInt(row.clearance) > clearance) {
-    alert("ACCESS DENIED");
-    return;
-  }
+    if (parseInt(row.clearance) > clearance) {
+        alert("ACCESS DENIED");
+        return;
+    }
 
-  switchScreen("reportScreen");
+    switchScreen("reportScreen");
 
-  document.getElementById("reportContent").innerHTML = `
-    <h2>${row.id} - ${row.name}</h2>
-    <p><strong>CLASS:</strong> ${row.class}</p>
-    <p><strong>STATUS:</strong> ${row.status}</p>
+    document.getElementById("reportContent").innerHTML = `
+    <h2>${row.discovery} - ${row.name}</h2>
+    <p><strong>IDENTIFIERS:</strong> ${row.identifiers}</p>
+    <p><strong>CONTAINED:</strong> ${row.contained}</p>
 
-    <h3>CONTAINMENT PROCEDURES</h3>
-    <p>${row.containment}</p>
+    <h3>PLACE OF ORIGIN</h3>
+    <p>${row.origin}</p>
 
     <h3>DESCRIPTION</h3>
     <p>${row.description}</p>
@@ -69,5 +86,5 @@ function openReport(i) {
 }
 
 function goMenu() {
-  switchScreen("menuScreen");
+    switchScreen("menuScreen");
 }
