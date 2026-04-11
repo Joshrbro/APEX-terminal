@@ -1,37 +1,45 @@
 body {
-  background: black;
-  color: #00ff88;
-  font-family: "Courier New", monospace;
-  text-align: center;
+    /*background: black;
+    color: #00ff88;*/
+    font-family: "Courier New", monospace;
+    text-align: center;
 }
 
 .screen {
-  display: none;
-  padding: 20px;
+    display: none;
+    padding: 20px;
 }
 
 .active {
-  display: block;
+    display: block;
 }
 
 button {
-  background: black;
-  color: #00ff88;
-  border: 1px solid #00ff88;
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
+    background: black;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
 }
 
 input {
-  background: black;
-  color: #00ff88;
-  border: 1px solid #00ff88;
-  padding: 5px;
-  margin: 5px;
+    background: black;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 5px;
+    margin: 5px;
 }
 
 .redacted {
-  background: #00ff88;
-  color: black;
+    background: #00ff88;
+    color: black;
+}
+
+.tag {
+    border: 1px solid #00ff88;
+    padding: 3px 8px;
+    margin: 3px;
+    display: inline-block;
+    border-radius: 4px;
 }
