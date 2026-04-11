@@ -18,9 +18,9 @@ function login() {
 
         if (found) {
             clearance = parseInt(found.clearance);
-            switchScreen("menuScreen");
             document.getElementById("clearnaceDisplay").innerText = clearance;
             document.getElementById("agentName").innerText = found.last;
+            switchScreen("menuScreen");
         }
         else {
             document.getElementById("loginMsg").innerText = "ACCESS DENIED";
