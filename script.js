@@ -73,7 +73,6 @@ function openReport(i) {
     const row = data[i];
 
     console.log("IMAGE URL:", row.url);
-    console.log("FIXED URL:", imageUrl);
 
     if (parseInt(row.clearance) > clearance) {
         alert("ACCESS DENIED");
