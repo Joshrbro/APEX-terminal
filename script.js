@@ -79,7 +79,7 @@ function openReport(i) {
 
     switchScreen("reportScreen");
 
-    const tags = row.tags ? row.tags.split(",").map(t => `<span class="tag">${t.trim()}</span>`).join("") : "";
+    const tags = row.tags ? row.tags.split(",").map(t => `<span class="tag">${t.trim()}</span>`).filter(t => t !== "").join("") : "";
 
     document.getElementById("reportContent").innerHTML = `
         <h2>${row.discovery} - ${row.name}</h2>
