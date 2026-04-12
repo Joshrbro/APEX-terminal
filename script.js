@@ -94,7 +94,7 @@ function openReport(i) {
 
     document.getElementById("reportContent").innerHTML = `
         <h2>${row.discovery} - ${row.name}</h2>
-        ${imageUrl ? `<img src="${row.url}" style="max-width:300px;"><br>` : ""}
+        <img src="https://via.placeholder.com/300">
         <p><strong>IDENTIFIERS:</strong> ${row.identifiers}</p>
         <p><strong>CONTAINED:</strong> ${row.contained}</p>
 
