@@ -77,8 +77,6 @@ function showDatabase() {
 function openReport(i) {
     const row = data[i];
 
-    console.log("IMAGE URL:", row.url);
-
     if (parseInt(row.clearance) > clearance) {
         alert("ACCESS DENIED");
         return;
@@ -92,6 +90,7 @@ function openReport(i) {
     const tagHTML = tags.map(tag => `<span class="tag">${tag}</span>`).join("");
 
     const imageUrl = fixDriveUrl(row.url);
+    console.log("IMAGE URL:", imageUrl);
 
     document.getElementById("reportContent").innerHTML = `
         <h2>${row.discovery} - ${row.name}</h2>
