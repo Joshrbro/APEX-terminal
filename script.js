@@ -47,7 +47,7 @@ function fixDriveUrl(url) {
     // Extract FILE_ID from any drive link
     const match = url.match(/[-\w]{25,}/);
     if (match) {
-        return `https://lh3.googleusercontent.com/d/${match[0]}`;
+        return `https://drive.google.com/thumbnail?id=${match[0]}&sz=w1000`;
     }
 
     return url;
