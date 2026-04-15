@@ -91,10 +91,10 @@ function openReport(i) {
 
     const imageUrl = fixDriveUrl(row.url);
     console.log("IMAGE URL:", imageUrl);
-
+//${imageUrl ? `<img src="${row.url}" style="max-width:300px;"><br>` : ""}
     document.getElementById("reportContent").innerHTML = `
         <h2>${row.discovery} - ${row.name}</h2>
-        ${imageUrl ? `<img src="${row.url}" style="max-width:300px;"><br>` : ""}
+        ${row.url ? `<img src="${imageUrl}" style="max-width:300px;"><br>` : ""}
         <p><strong>IDENTIFIERS:</strong> ${row.identifiers}</p>
         <p><strong>CONTAINED:</strong> ${row.contained}</p>
 
